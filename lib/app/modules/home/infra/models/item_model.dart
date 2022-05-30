@@ -25,8 +25,8 @@ class ItemModel extends Item {
         id: source['id'],
         name: source['name'],
         description: source['description'],
-        smallIcon: source['smallIcon'],
-        icon: source['icon']);
+        smallIcon: source['images']['smallIcon'],
+        icon: source['images']['icon']);
   }
 
   String toJson() => jsonEncode(toMap());

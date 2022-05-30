@@ -11,7 +11,11 @@ class PackageDatasourceImpl implements IPackageDatasource {
 
   @override
   Future<List<Package>> fetchPackages() async {
-    final result = await client.get('');
+    final result = await client.get('https://fortnite-api.com/v2/shop/br',
+        queryParameters: {'language': 'pt-BR'},
+        options: Options(headers: {
+          'Authorization': '1f53725b-4121-4bb9-9610-7db4271f3614'
+        }));
     if (result.statusCode == 200) {
       try {
         return (result.data['data']['featured']['entries'] as List)
