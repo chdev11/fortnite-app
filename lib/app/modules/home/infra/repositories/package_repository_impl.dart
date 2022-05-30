@@ -1,8 +1,9 @@
 import 'package:fortnite_app/app/modules/home/domain/entities/package.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fortnite_app/app/modules/home/domain/repositories/package_repository.dart';
-import 'package:fortnite_app/app/modules/home/errors/package_error.dart';
 import 'package:fortnite_app/app/modules/home/infra/datasources/package_datasource.dart';
+
+import '../../domain/errors/package_error.dart';
 
 class PackageRepositoryImpl implements IPackageRepository {
   final IPackageDatasource datasource;
