@@ -7,3 +7,11 @@ abstract class PackageException implements Exception {
 class PackageDatasourceException extends PackageException {
   PackageDatasourceException(super.message);
 }
+
+class PackageNormalizeException extends PackageException {
+  PackageNormalizeException(super.message);
+}
+
+class PackageStatusCodeException extends PackageException {
+  PackageStatusCodeException(super.message);
+}
