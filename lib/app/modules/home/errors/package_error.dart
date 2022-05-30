@@ -3,3 +3,7 @@ abstract class PackageException implements Exception {
 
   PackageException(this.message);
 }
+
+class PackageDatasourceException extends PackageException {
+  PackageDatasourceException(super.message);
+}
