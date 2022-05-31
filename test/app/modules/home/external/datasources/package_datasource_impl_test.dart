@@ -4,18 +4,20 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fortnite_app/app/modules/home/domain/entities/package.dart';
 import 'package:fortnite_app/app/modules/home/external/datasources/package_datasource_impl.dart';
+import 'package:fortnite_app/shared/clients/implementations/dio_client.dart';
 import 'package:mocktail/mocktail.dart';
 
-class DioClientMock extends Mock implements Dio {}
+class DioClientMock extends Mock implements DioClient {}
 
 void main() {
-  Dio client = DioClientMock();
+  DioClient client = DioClientMock();
   PackageDatasourceImpl packageDatasourceImpl = PackageDatasourceImpl(client);
   testWidgets('deve retornar uma lista de packages', (tester) async {
     when(() => client.get(any())).thenAnswer((_) async => Response(
-        requestOptions: RequestOptions(path: ''),
-        data: jsonDecode(fortniteFetch),
-        statusCode: 200));
+          statusCode: 200,
+          requestOptions: RequestOptions(path: ''),
+          data: jsonDecode(fortniteFetch),
+        ));
 
     final result = await packageDatasourceImpl.fetchPackages();
     expect(result, isA<List<Package>>());
