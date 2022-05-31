@@ -7,10 +7,20 @@ class OfferWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
-      child: Text(
-        '$value OFF',
-        style: const TextStyle(color: Colors.white),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+        colors: [Colors.red.shade900, Colors.redAccent],
+      )),
+      child: Padding(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.006),
+        child: Text(
+          '$value OFF',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: MediaQuery.of(context).size.height * 0.04),
+        ),
       ),
     );
   }

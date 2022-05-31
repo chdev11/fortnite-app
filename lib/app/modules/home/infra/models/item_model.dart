@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fortnite_app/app/modules/home/domain/entities/item.dart';
+import 'package:fortnite_app/app/modules/home/infra/models/item_rarity_model.dart';
 
 class ItemModel extends Item {
   ItemModel(
@@ -8,7 +9,9 @@ class ItemModel extends Item {
       required super.name,
       required super.description,
       required super.smallIcon,
-      required super.icon});
+      required super.icon,
+      super.featured,
+      required super.rarity});
 
   Map<String, dynamic> toMap() {
     return {
@@ -16,7 +19,9 @@ class ItemModel extends Item {
       'name': name,
       'description': description,
       'smallIcon': smallIcon,
-      'icon': icon
+      'icon': icon,
+      'featured': featured,
+      'rarity': (rarity as ItemRarityModel).toMap()
     };
   }
 
@@ -26,7 +31,9 @@ class ItemModel extends Item {
         name: source['name'],
         description: source['description'],
         smallIcon: source['images']['smallIcon'],
-        icon: source['images']['icon']);
+        icon: source['images']['icon'],
+        featured: source['images']['featured'],
+        rarity: ItemRarityModel.fromMap(source['rarity']));
   }
 
   String toJson() => jsonEncode(toMap());
