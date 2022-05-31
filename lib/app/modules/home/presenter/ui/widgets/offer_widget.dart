@@ -1,5 +1,3 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class OfferWidget extends StatelessWidget {
@@ -11,7 +9,7 @@ class OfferWidget extends StatelessWidget {
     return Container(
       color: Colors.red,
       child: Text(
-        'Desconto $value',
+        '$value OFF',
         style: const TextStyle(color: Colors.white),
       ),
     );

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fortnite_app/app/modules/home/domain/entities/package.dart';
+import 'package:fortnite_app/app/modules/home/domain/entities/featured.dart';
 import 'package:fortnite_app/app/modules/home/presenter/ui/widgets/offer_widget.dart';
 import 'package:fortnite_app/shared/utils/constants.dart';
 
-class PackageCard extends StatelessWidget {
-  final Package package;
+class FeaturedCard extends StatelessWidget {
+  final Featured featured;
   late Size size;
 
-  PackageCard({Key? key, required this.package}) : super(key: key);
+  FeaturedCard({Key? key, required this.featured}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +25,13 @@ class PackageCard extends StatelessWidget {
               ),
               SizedBox(width: size.width * 0.02),
               Text(
-                '${package.finalPrice}',
+                '${featured.finalPrice}',
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const Spacer(),
-              package.finalPrice - package.regularPrice < 0
+              featured.finalPrice - featured.regularPrice < 0
                   ? OfferWidget(
-                      value: (package.regularPrice - package.finalPrice),
+                      value: (featured.regularPrice - featured.finalPrice),
                     )
                   : Container()
             ],
@@ -42,7 +42,7 @@ class PackageCard extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               controller: ScrollController(),
-              children: package.items
+              children: featured.items
                   .map((e) => Padding(
                         padding: EdgeInsets.all(size.height * 0.02),
                         child: Column(

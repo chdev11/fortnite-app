@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:fortnite_app/app/modules/home/domain/entities/package.dart';
+import 'package:fortnite_app/app/modules/home/domain/entities/featured.dart';
 import 'package:fortnite_app/app/modules/home/presenter/states/package_state.dart';
 import 'package:fortnite_app/app/modules/home/presenter/stores/home_store.dart';
-import 'package:fortnite_app/app/modules/home/presenter/ui/widgets/package_card.dart';
+import 'package:fortnite_app/app/modules/home/presenter/ui/widgets/featured_card.dart';
 import 'package:mobx/mobx.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,14 +20,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    reaction<IPackageState>((_) => store.state, (state) {
+    reaction<IFeaturedState>((_) => store.state, (state) {
       String? message;
       Color color = Colors.grey;
 
-      if (state is PackageSuccess) {
+      if (state is FeaturedSuccess) {
         color = Colors.green;
         message = "Itens carregados com sucesso";
-      } else if (state is PackageError) {
+      } else if (state is FeaturedError) {
         color = Colors.red;
         message = "Falha ao carregar itens";
       }
@@ -53,14 +53,14 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Observer(
         builder: (context) {
-          if (store.state is PackageLoading) {
+          if (store.state is FeaturedLoading) {
             return const CircularProgressIndicator();
           } else {
             return ListView.builder(
               itemCount: store.packages.length,
               itemBuilder: (context, index) {
-                Package package = store.packages[index];
-                return PackageCard(package: package);
+                Featured featured = store.packages[index];
+                return FeaturedCard(featured: featured);
               },
             );
           }

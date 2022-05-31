@@ -13,13 +13,13 @@ mixin _$HomeStore on HomeStoreBase, Store {
       Atom(name: 'HomeStoreBase.packages', context: context);
 
   @override
-  ObservableList<Package> get packages {
+  ObservableList<Featured> get packages {
     _$packagesAtom.reportRead();
     return super.packages;
   }
 
   @override
-  set packages(ObservableList<Package> value) {
+  set packages(ObservableList<Featured> value) {
     _$packagesAtom.reportWrite(value, super.packages, () {
       super.packages = value;
     });
@@ -28,24 +28,24 @@ mixin _$HomeStore on HomeStoreBase, Store {
   late final _$stateAtom = Atom(name: 'HomeStoreBase.state', context: context);
 
   @override
-  IPackageState get state {
+  IFeaturedState get state {
     _$stateAtom.reportRead();
     return super.state;
   }
 
   @override
-  set state(IPackageState value) {
+  set state(IFeaturedState value) {
     _$stateAtom.reportWrite(value, super.state, () {
       super.state = value;
     });
   }
 
-  late final _$fetchPackagesAsyncAction =
-      AsyncAction('HomeStoreBase.fetchPackages', context: context);
+  late final _$fetchFeaturesAsyncAction =
+      AsyncAction('HomeStoreBase.fetchFeatures', context: context);
 
   @override
-  Future<void> fetchPackages() {
-    return _$fetchPackagesAsyncAction.run(() => super.fetchPackages());
+  Future<void> fetchFeatures() {
+    return _$fetchFeaturesAsyncAction.run(() => super.fetchFeatures());
   }
 
   @override

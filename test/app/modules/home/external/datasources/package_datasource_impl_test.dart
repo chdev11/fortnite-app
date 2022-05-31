@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fortnite_app/app/modules/home/domain/entities/package.dart';
-import 'package:fortnite_app/app/modules/home/external/datasources/package_datasource_impl.dart';
+import 'package:fortnite_app/app/modules/home/domain/entities/featured.dart';
+import 'package:fortnite_app/app/modules/home/external/datasources/featured_datasource_impl.dart';
 import 'package:fortnite_app/shared/clients/implementations/dio_client.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -11,16 +11,16 @@ class DioClientMock extends Mock implements DioClient {}
 
 void main() {
   DioClient client = DioClientMock();
-  PackageDatasourceImpl packageDatasourceImpl = PackageDatasourceImpl(client);
-  testWidgets('deve retornar uma lista de packages', (tester) async {
+  FeaturedDatasourceImpl packageDatasourceImpl = FeaturedDatasourceImpl(client);
+  testWidgets('deve retornar uma lista de features', (tester) async {
     when(() => client.get(any())).thenAnswer((_) async => Response(
           statusCode: 200,
           requestOptions: RequestOptions(path: ''),
           data: jsonDecode(fortniteFetch),
         ));
 
-    final result = await packageDatasourceImpl.fetchPackages();
-    expect(result, isA<List<Package>>());
+    final result = await packageDatasourceImpl.fetchFeatures();
+    expect(result, isA<List<Featured>>());
   });
 }
 

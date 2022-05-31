@@ -1,5 +1,5 @@
-import 'package:fortnite_app/app/modules/home/domain/entities/package.dart';
-import 'package:fortnite_app/app/modules/home/domain/usecases/get_packages.dart';
+import 'package:fortnite_app/app/modules/home/domain/entities/featured.dart';
+import 'package:fortnite_app/app/modules/home/domain/usecases/get_features.dart';
 import 'package:fortnite_app/app/modules/home/presenter/states/package_state.dart';
 import 'package:mobx/mobx.dart';
 
@@ -8,26 +8,26 @@ part 'home_store.g.dart';
 class HomeStore = HomeStoreBase with _$HomeStore;
 
 abstract class HomeStoreBase with Store {
-  final IGetPackages _usecase;
+  final IGetFeatures _usecase;
 
   HomeStoreBase(this._usecase) {
-    fetchPackages();
+    fetchFeatures();
   }
 
   @observable
-  var packages = ObservableList<Package>.of([]);
+  var packages = ObservableList<Featured>.of([]);
 
   @observable
-  IPackageState state = PackageReady();
+  IFeaturedState state = FeaturedReady();
 
   @action
-  Future<void> fetchPackages() async {
-    state = PackageLoading();
+  Future<void> fetchFeatures() async {
+    state = FeaturedLoading();
 
     final result = await _usecase();
     result.fold(
-        (l) => state = PackageError(),
+        (l) => state = FeaturedError(),
         (r) =>
-            [state = PackageSuccess(), packages.clear(), packages.addAll(r)]);
+            [state = FeaturedSuccess(), packages.clear(), packages.addAll(r)]);
   }
 }

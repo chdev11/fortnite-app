@@ -1,9 +1,9 @@
-abstract class IPackageState {}
+abstract class IFeaturedState {}
 
-class PackageReady extends IPackageState {}
+class FeaturedReady extends IFeaturedState {}
 
-class PackageLoading extends IPackageState {}
+class FeaturedLoading extends IFeaturedState {}
 
-class PackageSuccess extends IPackageState {}
+class FeaturedSuccess extends IFeaturedState {}
 
-class PackageError extends IPackageState {}
+class FeaturedError extends IFeaturedState {}

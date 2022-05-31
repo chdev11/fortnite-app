@@ -1,22 +1,22 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fortnite_app/app/modules/home/domain/entities/package.dart';
-import 'package:fortnite_app/app/modules/home/infra/datasources/package_datasource.dart';
-import 'package:fortnite_app/app/modules/home/infra/models/package_model.dart';
-import 'package:fortnite_app/app/modules/home/infra/repositories/package_repository_impl.dart';
+import 'package:fortnite_app/app/modules/home/domain/entities/featured.dart';
+import 'package:fortnite_app/app/modules/home/infra/datasources/featured_datasource.dart';
+import 'package:fortnite_app/app/modules/home/infra/models/featured_model.dart';
+import 'package:fortnite_app/app/modules/home/infra/repositories/featured_repository_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
-class PackageDatasourceMock extends Mock implements IPackageDatasource {}
+class FeaturedDatasourceMock extends Mock implements IFeaturedDatasource {}
 
 void main() {
-  final datasource = PackageDatasourceMock();
-  final repository = PackageRepositoryImpl(datasource);
-  testWidgets('deve retornar uma lista de packages', (tester) async {
-    when(() => datasource.fetchPackages())
-        .thenAnswer((_) async => <PackageModel>[]);
+  final datasource = FeaturedDatasourceMock();
+  final repository = FeaturedRepositoryImpl(datasource);
+  testWidgets('deve retornar uma lista de features', (tester) async {
+    when(() => datasource.fetchFeatures())
+        .thenAnswer((_) async => <FeaturedModel>[]);
 
-    final result = await repository.fetchPackages();
+    final result = await repository.fetchFeatures();
     expect(result.isRight(), true);
-    expect(result.fold(id, id), isA<List<Package>>());
+    expect(result.fold(id, id), isA<List<Featured>>());
   });
 }

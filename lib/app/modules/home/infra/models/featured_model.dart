@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:fortnite_app/app/modules/home/domain/entities/package.dart';
+import 'package:fortnite_app/app/modules/home/domain/entities/featured.dart';
 import 'package:fortnite_app/app/modules/home/infra/models/item_model.dart';
 
-class PackageModel extends Package {
-  PackageModel(
+class FeaturedModel extends Featured {
+  FeaturedModel(
       {required super.regularPrice,
       required super.finalPrice,
       required super.items});
@@ -17,8 +17,8 @@ class PackageModel extends Package {
     };
   }
 
-  factory PackageModel.fromMap(Map source) {
-    return PackageModel(
+  factory FeaturedModel.fromMap(Map source) {
+    return FeaturedModel(
         regularPrice: source['regularPrice'],
         finalPrice: source['finalPrice'],
         items: (source['items'] as List)
@@ -28,6 +28,6 @@ class PackageModel extends Package {
 
   String toJson() => jsonEncode(toMap());
 
-  factory PackageModel.fromJson(String source) =>
-      PackageModel.fromMap(jsonDecode(source));
+  factory FeaturedModel.fromJson(String source) =>
+      FeaturedModel.fromMap(jsonDecode(source));
 }

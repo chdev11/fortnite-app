@@ -1,9 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:fortnite_app/app/modules/home/domain/repositories/package_repository.dart';
-import 'package:fortnite_app/app/modules/home/domain/usecases/get_packages.dart';
-import 'package:fortnite_app/app/modules/home/external/datasources/package_datasource_impl.dart';
-import 'package:fortnite_app/app/modules/home/infra/datasources/package_datasource.dart';
-import 'package:fortnite_app/app/modules/home/infra/repositories/package_repository_impl.dart';
+import 'package:fortnite_app/app/modules/home/domain/repositories/featured_repository.dart';
+import 'package:fortnite_app/app/modules/home/domain/usecases/get_features.dart';
+import 'package:fortnite_app/app/modules/home/external/datasources/featured_datasource_impl.dart';
+import 'package:fortnite_app/app/modules/home/infra/datasources/featured_datasource.dart';
+import 'package:fortnite_app/app/modules/home/infra/repositories/featured_repository_impl.dart';
 import 'package:fortnite_app/shared/clients/implementations/dio_client.dart';
 import 'presenter/stores/home_store.dart';
 
@@ -12,10 +12,10 @@ import 'presenter/ui/home_page.dart';
 class HomeModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.lazySingleton((i) => PackageDatasourceImpl(i<DioClient>())),
-    Bind.lazySingleton((i) => PackageRepositoryImpl(i<IPackageDatasource>())),
-    Bind.lazySingleton((i) => GetPackages(i<IPackageRepository>())),
-    Bind.lazySingleton((i) => HomeStore(i<IGetPackages>())),
+    Bind.lazySingleton((i) => FeaturedDatasourceImpl(i<DioClient>())),
+    Bind.lazySingleton((i) => FeaturedRepositoryImpl(i<IFeaturedDatasource>())),
+    Bind.lazySingleton((i) => GetFeatures(i<IFeaturedRepository>())),
+    Bind.lazySingleton((i) => HomeStore(i<IGetFeatures>())),
   ];
 
   @override
