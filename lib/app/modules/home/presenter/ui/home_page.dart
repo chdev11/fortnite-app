@@ -54,7 +54,15 @@ class _HomePageState extends State<HomePage> {
       body: Observer(
         builder: (context) {
           if (store.state is FeaturedLoading) {
-            return const CircularProgressIndicator();
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [CircularProgressIndicator()],
+                )
+              ],
+            );
           } else {
             return ListView.builder(
               itemCount: store.packages.length,
