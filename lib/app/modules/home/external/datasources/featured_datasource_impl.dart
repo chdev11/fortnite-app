@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:fortnite_app/app/modules/home/domain/entities/featured.dart';
 import 'package:fortnite_app/app/modules/home/domain/errors/featured_error.dart';
 import 'package:fortnite_app/app/modules/home/infra/datasources/featured_datasource.dart';

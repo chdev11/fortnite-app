@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Fortnite - Itens'),
+        title: const Text('Fortnite - Destaques'),
       ),
       body: Observer(
         builder: (context) {
