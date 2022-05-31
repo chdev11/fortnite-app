@@ -6,10 +6,12 @@ class Featured {
   final int finalPrice;
   final List<Item> items;
   final Bundle? bundle;
+  final List<String> bundleBackgroundImages;
 
   Featured(
       {required this.regularPrice,
       required this.finalPrice,
       required this.items,
-      this.bundle});
+      this.bundle,
+      this.bundleBackgroundImages = const []});
 }

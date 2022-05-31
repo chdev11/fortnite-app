@@ -1,42 +1,153 @@
 import 'package:flutter/material.dart';
 import 'package:fortnite_app/app/modules/home/domain/entities/featured.dart';
+import 'package:fortnite_app/app/modules/home/presenter/ui/widgets/item_card.dart';
 import 'package:fortnite_app/app/modules/home/presenter/ui/widgets/offer_widget.dart';
 import 'package:fortnite_app/shared/utils/constants.dart';
-import 'package:fortnite_app/shared/utils/fortnite_rarities.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FeaturedCard extends StatelessWidget {
+class FeaturedCard extends StatefulWidget {
   final Featured featured;
-  late Size size;
 
-  FeaturedCard({Key? key, required this.featured}) : super(key: key);
+  const FeaturedCard({Key? key, required this.featured}) : super(key: key);
+
+  @override
+  State<FeaturedCard> createState() => _FeaturedCardState();
+}
+
+class _FeaturedCardState extends State<FeaturedCard> {
+  late Size size;
+  late int currentImageIndex;
+
+  @override
+  void initState() {
+    if (widget.featured.bundleBackgroundImages.isNotEmpty) {
+      currentImageIndex = 0;
+      () async {
+        while (true) {
+          await Future.delayed(const Duration(seconds: 10));
+          if (currentImageIndex ==
+              widget.featured.bundleBackgroundImages.length - 1) {
+            currentImageIndex = 0;
+          } else {
+            currentImageIndex++;
+          }
+          if (mounted) setState(() {});
+        }
+      }();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-
     return Column(
       children: [
-        Row(
-          children: [
-            Image(
-              image: const NetworkImage(vbuckIcon),
-              width: size.height * 0.07,
-              height: size.height * 0.07,
-            ),
-            SizedBox(width: size.width * 0.02),
-            Text(
-              '${featured.finalPrice}',
-              style: TextStyle(fontSize: size.height * 0.035),
-            ),
-            const Spacer(),
-            featured.finalPrice - featured.regularPrice < 0
-                ? OfferWidget(
-                    value: (featured.regularPrice - featured.finalPrice),
+        widget.featured.bundle != null
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    children: [
+                      Image(
+                          image: NetworkImage(widget.featured
+                              .bundleBackgroundImages[currentImageIndex]),
+                          width: size.width,
+                          height: size.width),
+                      Positioned(
+                          bottom: 0,
+                          left: 0,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: size.width,
+                                height: size.height * 0.06,
+                                color: Colors.black.withOpacity(.6),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      widget.featured.bundle!.name,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal,
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: size.height * 0.04),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: size.width,
+                                height: size.height * 0.04,
+                                color: Colors.black,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      '${widget.featured.finalPrice}',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontStyle: FontStyle.italic,
+                                          fontSize: size.height * 0.03),
+                                    ),
+                                    RotationTransition(
+                                      turns: const AlwaysStoppedAnimation(
+                                          15 / 360),
+                                      child: Image(
+                                        image: const NetworkImage(vbuckIcon),
+                                        width: size.height * 0.07,
+                                        height: size.height * 0.07,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )),
+                      Positioned(
+                          top: 0,
+                          left: 0,
+                          child: widget.featured.finalPrice -
+                                      widget.featured.regularPrice <
+                                  0
+                              ? OfferWidget(
+                                  value: (widget.featured.regularPrice -
+                                      widget.featured.finalPrice),
+                                )
+                              : Container()),
+                    ],
                   )
-                : Container()
-          ],
-        ),
+                ],
+              )
+            : Container(),
+        widget.featured.bundle == null
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image(
+                    image: const NetworkImage(vbuckIcon),
+                    width: size.height * 0.07,
+                    height: size.height * 0.07,
+                  ),
+                  SizedBox(width: size.width * 0.02),
+                  Text(
+                    '${widget.featured.finalPrice}',
+                    style: TextStyle(fontSize: size.height * 0.035),
+                  ),
+                  const Spacer(),
+                  widget.featured.finalPrice - widget.featured.regularPrice < 0
+                      ? OfferWidget(
+                          value: (widget.featured.regularPrice -
+                              widget.featured.finalPrice),
+                        )
+                      : Container()
+                ],
+              )
+            : SizedBox(height: size.height * 0.01),
         SizedBox(
           height: size.height * 0.4,
           child: Align(
@@ -45,71 +156,14 @@ class FeaturedCard extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               controller: ScrollController(),
-              children: featured.items
-                  .map((e) => Padding(
-                        padding: EdgeInsets.only(left: size.height * 0.01),
-                        child: Container(
-                          width: size.height * 0.3,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color:
-                                      getRarityColorsByValue(e.rarity.value)[1]
-                                          .withAlpha(80),
-                                  width: size.height * 0.005,
-                                  style: BorderStyle.solid),
-                              gradient: RadialGradient(
-                                radius: .8,
-                                colors: getRarityColorsByValue(e.rarity.value),
-                              )),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image(
-                                image: NetworkImage(e.featured ?? e.icon),
-                                width: size.height * 0.3,
-                                height: size.height * 0.3,
-                              ),
-                              SizedBox(height: size.width * 0.005),
-                              Expanded(
-                                child: Container(
-                                  width: size.width,
-                                  color: Colors.black.withOpacity(.5),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        e.name,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.white,
-                                            overflow: TextOverflow.ellipsis,
-                                            fontSize: size.height * 0.03),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: size.height * 0.01,
-                                            right: size.height * 0.01),
-                                        child: Text(
-                                          e.description,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              overflow: TextOverflow.ellipsis,
-                                              fontSize: size.height * 0.02),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ))
-                  .toList(),
+              children:
+                  widget.featured.items.map((e) => ItemCard(item: e)).toList(),
             ),
           ),
+        ),
+        SizedBox(height: size.height * 0.02),
+        const Divider(
+          color: Colors.black,
         )
       ],
     );

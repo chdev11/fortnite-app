@@ -16,10 +16,10 @@ class OfferWidget extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.006),
         child: Text(
-          '$value OFF',
+          '$value V-Bucks Off',
           style: TextStyle(
               color: Colors.white,
-              fontSize: MediaQuery.of(context).size.height * 0.04),
+              fontSize: MediaQuery.of(context).size.height * 0.035),
         ),
       ),
     );

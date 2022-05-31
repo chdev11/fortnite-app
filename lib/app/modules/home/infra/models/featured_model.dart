@@ -9,14 +9,16 @@ class FeaturedModel extends Featured {
       {required super.regularPrice,
       required super.finalPrice,
       required super.items,
-      super.bundle});
+      required super.bundle,
+      required super.bundleBackgroundImages});
 
   Map<String, dynamic> toMap() {
     return {
       'regularPrice': regularPrice,
       'finalPrice': finalPrice,
       'items': items.map((e) => (e as ItemModel).toMap()),
-      'bundle': bundle
+      'bundle': bundle,
+      'bundleBackgroundImage': bundleBackgroundImages
     };
   }
 
@@ -29,6 +31,10 @@ class FeaturedModel extends Featured {
       bundle: source['bundle'] != null
           ? BundleModel.fromMap(source['bundle'])
           : null,
+      bundleBackgroundImages:
+          (source['newDisplayAsset']['materialInstances'] as List)
+              .map((e) => (e['images']['Background'] as String))
+              .toList(),
     );
   }
 
