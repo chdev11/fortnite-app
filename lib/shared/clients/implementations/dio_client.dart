@@ -7,12 +7,11 @@ class DioClient implements IClient {
   DioClient(
       {required String baseUrl,
       List<InterceptorsWrapper> interceptors = const []}) {
-    client = Dio(
-      BaseOptions(
-        baseUrl: baseUrl,
-        connectTimeout: 10000,
-      ),
-    );
+    client = Dio(BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: 10000,
+      validateStatus: (status) => status! < 500,
+    ));
     if (interceptors.isNotEmpty) {
       client.interceptors.clear();
       client.interceptors.addAll(interceptors);

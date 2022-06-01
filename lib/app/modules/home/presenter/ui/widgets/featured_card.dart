@@ -110,12 +110,9 @@ class _FeaturedCardState extends State<FeaturedCard> {
                       Positioned(
                           top: 0,
                           left: 0,
-                          child: widget.featured.finalPrice -
-                                      widget.featured.regularPrice <
-                                  0
+                          child: widget.featured.bannerValue != null
                               ? OfferWidget(
-                                  value: (widget.featured.regularPrice -
-                                      widget.featured.finalPrice),
+                                  text: widget.featured.bannerValue!,
                                 )
                               : Container()),
                     ],
@@ -139,10 +136,9 @@ class _FeaturedCardState extends State<FeaturedCard> {
                     style: TextStyle(fontSize: size.height * 0.035),
                   ),
                   const Spacer(),
-                  widget.featured.finalPrice - widget.featured.regularPrice < 0
+                  widget.featured.bannerValue != null
                       ? OfferWidget(
-                          value: (widget.featured.regularPrice -
-                              widget.featured.finalPrice),
+                          text: widget.featured.bannerValue!,
                         )
                       : Container()
                 ],

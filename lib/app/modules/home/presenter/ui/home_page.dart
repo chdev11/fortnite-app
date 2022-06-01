@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fortnite_app/app/modules/home/domain/entities/featured.dart';
+import 'package:fortnite_app/app/modules/home/domain/errors/featured_error.dart';
 import 'package:fortnite_app/app/modules/home/presenter/states/package_state.dart';
 import 'package:fortnite_app/app/modules/home/presenter/stores/home_store.dart';
 import 'package:fortnite_app/app/modules/home/presenter/ui/widgets/featured_card.dart';
@@ -29,7 +30,8 @@ class _HomePageState extends State<HomePage> {
         message = "Itens carregados com sucesso";
       } else if (state is FeaturedError) {
         color = Colors.red;
-        message = "Falha ao carregar itens";
+        message =
+            "Falha ao carregar itens. (${state.exception is! FeaturedDatasourceException ? state.exception.message : ''})";
       }
 
       if (message != null) {

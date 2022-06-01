@@ -12,6 +12,14 @@ class FeaturedNormalizeException extends FeaturedException {
   FeaturedNormalizeException(super.message);
 }
 
-class FeaturedStatusCodeException extends FeaturedException {
-  FeaturedStatusCodeException(super.message);
+class FeaturedInvalidOrMissingParamException extends FeaturedException {
+  FeaturedInvalidOrMissingParamException(super.message);
+}
+
+class FeaturedUnauthorizedException extends FeaturedException {
+  FeaturedUnauthorizedException(super.message);
+}
+
+class FeaturedBadRequestException extends FeaturedException {
+  FeaturedBadRequestException(super.message);
 }

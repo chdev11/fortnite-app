@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class OfferWidget extends StatelessWidget {
-  final int value;
-  const OfferWidget({Key? key, required this.value}) : super(key: key);
+  final String text;
+  const OfferWidget({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class OfferWidget extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.006),
         child: Text(
-          '$value V-Bucks Off',
+          text,
           style: TextStyle(
               color: Colors.white,
               fontSize: MediaQuery.of(context).size.height * 0.035),

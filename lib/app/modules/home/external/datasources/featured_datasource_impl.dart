@@ -21,8 +21,13 @@ class FeaturedDatasourceImpl implements IFeaturedDatasource {
       } catch (e) {
         throw FeaturedNormalizeException(e.toString());
       }
+    } else if (result.statusCode == 400) {
+      throw FeaturedInvalidOrMissingParamException(result.data['error']);
+    } else if (result.statusCode == 401) {
+      throw FeaturedUnauthorizedException(
+          'Unauthorized. ${result.data['error']}');
     } else {
-      throw FeaturedStatusCodeException('');
+      throw FeaturedBadRequestException('Internal server error');
     }
   }
 }

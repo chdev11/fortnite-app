@@ -15,6 +15,8 @@ class FeaturedRepositoryImpl implements IFeaturedRepository {
     try {
       final result = await datasource.fetchFeatures();
       return Right(result);
+    } on FeaturedException catch (e) {
+      return Left(e);
     } catch (e) {
       return Left(FeaturedDatasourceException(e.toString()));
     }

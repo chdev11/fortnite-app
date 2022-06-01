@@ -26,7 +26,7 @@ abstract class HomeStoreBase with Store {
 
     final result = await _usecase();
     result.fold(
-        (l) => state = FeaturedError(),
+        (l) => state = FeaturedError(l),
         (r) =>
             [state = FeaturedSuccess(), packages.clear(), packages.addAll(r)]);
   }

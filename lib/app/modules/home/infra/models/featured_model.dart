@@ -9,6 +9,7 @@ class FeaturedModel extends Featured {
       {required super.regularPrice,
       required super.finalPrice,
       required super.items,
+      required super.bannerValue,
       required super.bundle,
       required super.bundleBackgroundImages});
 
@@ -17,6 +18,7 @@ class FeaturedModel extends Featured {
       'regularPrice': regularPrice,
       'finalPrice': finalPrice,
       'items': items.map((e) => (e as ItemModel).toMap()),
+      'banner': bannerValue != null ? {'value': bannerValue} : null,
       'bundle': bundle,
       'bundleBackgroundImage': bundleBackgroundImages
     };
@@ -28,6 +30,7 @@ class FeaturedModel extends Featured {
       finalPrice: source['finalPrice'],
       items:
           (source['items'] as List).map((e) => ItemModel.fromMap(e)).toList(),
+      bannerValue: source['banner'] != null ? source['banner']['value'] : null,
       bundle: source['bundle'] != null
           ? BundleModel.fromMap(source['bundle'])
           : null,
