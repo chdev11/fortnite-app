@@ -68,14 +68,15 @@ class _FeaturedCardState extends State<FeaturedCard> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    Flexible(
+                                        child: Text(
                                       widget.featured.bundle!.name,
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.normal,
                                           overflow: TextOverflow.ellipsis,
                                           fontSize: size.height * 0.04),
-                                    ),
+                                    )),
                                   ],
                                 ),
                               ),
