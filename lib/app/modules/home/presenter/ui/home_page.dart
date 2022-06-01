@@ -61,15 +61,15 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [CircularProgressIndicator()],
+                  children: const [CircularProgressIndicator()],
                 )
               ],
             );
           } else {
             return ListView.builder(
-              itemCount: store.packages.length,
+              itemCount: store.features.length,
               itemBuilder: (context, index) {
-                Featured featured = store.packages[index];
+                Featured featured = store.features[index];
                 return FeaturedCard(featured: featured);
               },
             );

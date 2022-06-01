@@ -15,7 +15,13 @@ abstract class HomeStoreBase with Store {
   }
 
   @observable
-  var packages = ObservableList<Featured>.of([]);
+  String? title;
+
+  @action
+  void setTitle(String source) => title = source;
+
+  @observable
+  var features = ObservableList<Featured>.of([]);
 
   @observable
   IFeaturedState state = FeaturedReady();
@@ -28,6 +34,6 @@ abstract class HomeStoreBase with Store {
     result.fold(
         (l) => state = FeaturedError(l),
         (r) =>
-            [state = FeaturedSuccess(), packages.clear(), packages.addAll(r)]);
+            [state = FeaturedSuccess(), features.clear(), features.addAll(r)]);
   }
 }
